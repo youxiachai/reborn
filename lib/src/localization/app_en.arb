@@ -1,0 +1,6 @@
+{
+  "appTitle": "reborn",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
