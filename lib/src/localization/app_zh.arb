@@ -1,0 +1,9 @@
+{
+  "appTitle": "练习",
+  "settingTitle": "设置",
+  "homeTitle": "Home",
+  "otherTitle": "其他",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}

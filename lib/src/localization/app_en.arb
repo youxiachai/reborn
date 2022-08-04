@@ -1,5 +1,8 @@
 {
   "appTitle": "reborn",
+  "settingTitle": "setting",
+  "homeTitle": "home",
+  "otherTitle": "otherTitle",
   "@appTitle": {
     "description": "The title of the application"
   }
