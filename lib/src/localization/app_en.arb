@@ -3,6 +3,7 @@
   "settingTitle": "setting",
   "homeTitle": "home",
   "otherTitle": "otherTitle",
+  "infinite_list": "infiniteList",
   "@appTitle": {
     "description": "The title of the application"
   }

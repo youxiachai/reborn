@@ -3,6 +3,7 @@
   "settingTitle": "设置",
   "homeTitle": "Home",
   "otherTitle": "其他",
+  "infinite_list": "无限列表",
   "@appTitle": {
     "description": "The title of the application"
   }
