@@ -12,9 +12,9 @@ const double windowWidth = 640;
 const double windowHeight = 1280;
 
 //限制桌面版本窗口的大小
-void setupWindow() {
+void setupWindow()  {
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    WidgetsFlutterBinding.ensureInitialized();
+   
     setWindowTitle('Reborn');
     setWindowMinSize(const Size(windowWidth, windowHeight));
     setWindowMaxSize(const Size(windowWidth, windowHeight));
@@ -29,6 +29,7 @@ void setupWindow() {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupWindow();
   final settingsController = SettingsController(SettingsService());
 
