@@ -17,3 +17,7 @@ Provider 的库的使用
 1. 创建一个ChangeNotifier
 2. 对应的widget包一层ChangeNotifierProvider
 3. 在用Selector 消费Provider 内容 包一层listview 
+
+flutter 2.5 以后滑动和手势行为需要自行设置
+
+https://docs.flutter.dev/release/breaking-changes/default-scroll-behavior-drag
