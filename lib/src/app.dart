@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -5,6 +7,17 @@ import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_view.dart';
 
 import 'home/home_view.dart';
+import 'infinite_list/infinite_list_view.dart';
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => { 
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    // etc.
+  };
+}
 
 class RebornApp extends StatelessWidget {
   final SettingsController settingsController;
@@ -19,6 +32,7 @@ class RebornApp extends StatelessWidget {
         animation: settingsController,
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
+            scrollBehavior: MyCustomScrollBehavior(),
               restorationScopeId: 'reborn',
               //国际化
               localizationsDelegates: const [
@@ -27,7 +41,7 @@ class RebornApp extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: const [Locale('en', ''),Locale('zh', '')],
+              supportedLocales: const [Locale('en', ''), Locale('zh', '')],
               onGenerateTitle: (BuildContext context) =>
                   AppLocalizations.of(context)!.appTitle,
               theme: ThemeData(),
@@ -38,6 +52,8 @@ class RebornApp extends StatelessWidget {
                     settings: routeSettings,
                     builder: (BuildContext context) {
                       switch (routeSettings.name) {
+                        case InfiniteListView.routeName:
+                          return const InfiniteListView();
                         case SettingsView.routeName:
                           return SettingsView(controller: settingsController);
                       }
