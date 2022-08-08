@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_view.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'home/home_view.dart';
 import 'infinite_list/infinite_list_view.dart';
@@ -12,11 +13,11 @@ import 'infinite_list/infinite_list_view.dart';
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices => { 
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    // etc.
-  };
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }
 
 class RebornApp extends StatelessWidget {
@@ -32,7 +33,7 @@ class RebornApp extends StatelessWidget {
         animation: settingsController,
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
-            scrollBehavior: MyCustomScrollBehavior(),
+              scrollBehavior: MyCustomScrollBehavior(),
               restorationScopeId: 'reborn',
               //国际化
               localizationsDelegates: const [
@@ -57,8 +58,8 @@ class RebornApp extends StatelessWidget {
                         case SettingsView.routeName:
                           return SettingsView(controller: settingsController);
                       }
-
-                      return const HomeView();
+                      return const InfiniteListView();
+                      // return const HomeView();
                     });
               });
         });

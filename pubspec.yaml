@@ -17,10 +17,6 @@ dependencies:
   intl: ^0.17.0 # Add this line  
   provider: ^6.0.3
   window_manager: ^0.2.5
-  window_size:
-    git:
-      url: https://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
 
 dev_dependencies:
   flutter_test:

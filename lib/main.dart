@@ -5,22 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:window_size/window_size.dart';
 
 import 'src/app.dart';
+import 'src/platform/windows_view.dart';
 
 const double windowWidth = 320;
 const double windowHeight = 640;
 
 //限制桌面版本窗口的大小
-Future<void> setupWindow() async {
+Future<bool> setupWindow() async {
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    // Must add this line.
+    // // Must add this line.
     await windowManager.ensureInitialized();
 
-    WindowOptions windowOptions = WindowOptions(
+    WindowOptions windowOptions = const WindowOptions(
       size: Size(windowWidth, windowHeight),
       center: true,
       backgroundColor: Colors.transparent,
@@ -28,40 +26,27 @@ Future<void> setupWindow() async {
       titleBarStyle: TitleBarStyle.normal,
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
+      print('waitUntilReadyToShow');
       await windowManager.show();
       await windowManager.focus();
     });
 
-    // var window = await getWindowInfo();
-
-    // setWindowFrame(Rect.fromCenter(
-    //   center: window.screen!.frame.center,
-    //   width: windowWidth,
-    //   height: windowHeight,
-    // ));
-
-    // setWindowMinSize(const Size(windowWidth, windowHeight));
-    // setWindowMaxSize(const Size(windowWidth, windowHeight));
-    // setWindowTitle('Reborn');
-
-    // getCurrentScreen().then((screen) {
-    //   setWindowFrame(Rect.fromCenter(
-    //     center: screen!.frame.center,
-    //     width: windowWidth,
-    //     height: windowHeight,
-    //   ));
-    // });
+    return true;
   }
+  return false;
 }
 
 void main() async {
-  await setupWindow();
-
+  WidgetsFlutterBinding.ensureInitialized();
   final settingsController = SettingsController(SettingsService());
 
   await settingsController.loadSettings();
 
-  runApp(RebornApp(settingsController: settingsController));
+  var isDesktop = await setupWindow();
 
-
+  if (isDesktop) {
+    runApp(RebornAppForDesktop(settingsController: settingsController));
+  } else {
+    runApp(RebornApp(settingsController: settingsController));
+  }
 }
