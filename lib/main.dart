@@ -7,10 +7,15 @@ import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/app.dart';
+import 'src/platform/desktop_init_manager.dart';
 import 'src/platform/windows_view.dart';
 
 const double windowWidth = 320;
 const double windowHeight = 640;
+
+var initManger = InitManager();
+
+class WindowShowEvent {}
 
 //限制桌面版本窗口的大小
 Future<bool> setupWindow() async {
@@ -27,8 +32,17 @@ Future<bool> setupWindow() async {
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       print('waitUntilReadyToShow');
+      var isShowBefore = await windowManager.isFocused();
       await windowManager.show();
+      var isShowAfter = await windowManager.isFocused();
       await windowManager.focus();
+      var isFoucs = await windowManager.isFocused();
+      print(
+          'waitUntilReadyToShow isShowBefore ${isShowBefore} ${isShowAfter} ${isFoucs}');
+      if (!initManger.isInit){
+         initManger.initEvent(WindowShowEvent());
+      }
+     
     });
 
     return true;

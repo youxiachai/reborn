@@ -58,8 +58,8 @@ class RebornApp extends StatelessWidget {
                         case SettingsView.routeName:
                           return SettingsView(controller: settingsController);
                       }
-                      return const InfiniteListView();
-                      // return const HomeView();
+                      // return const InfiniteListView();
+                      return const HomeView();
                     });
               });
         });

@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.17.0 # Add this line  
   provider: ^6.0.3
   window_manager: ^0.2.5
+  bitsdojo_window: ^0.1.2
 
 dev_dependencies:
   flutter_test:

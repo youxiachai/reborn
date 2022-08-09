@@ -18,7 +18,6 @@ class HomeView extends StatelessWidget {
 
     List<SampleItem> items = [itemOne];
 
-    
     return Scaffold(
       appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.homeTitle),

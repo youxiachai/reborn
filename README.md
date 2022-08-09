@@ -49,3 +49,7 @@ https://github.com/leanflutter/window_manager/blob/main/README-ZH.md#%E5%9C%A8%E
       nullptr, nullptr, GetModuleHandle(nullptr), this);
 
 ```
+
+关于启动白屏的问题
+
+https://github.com/leanflutter/window_manager/issues/185
