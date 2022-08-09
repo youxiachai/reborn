@@ -3,7 +3,8 @@
   "settingTitle": "setting",
   "homeTitle": "home",
   "otherTitle": "otherTitle",
-  "infinite_list": "infiniteList",
+  "infiniteList": "infiniteList",
+  "textFieldExample" : "textFieldExample",
   "@appTitle": {
     "description": "The title of the application"
   }

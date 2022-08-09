@@ -5,10 +5,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_view.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'home/home_view.dart';
 import 'infinite_list/infinite_list_view.dart';
+import 'textfile_button/textfile_button_view.dart';
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
@@ -33,6 +33,7 @@ class RebornApp extends StatelessWidget {
         animation: settingsController,
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
+              debugShowCheckedModeBanner: true,
               scrollBehavior: MyCustomScrollBehavior(),
               restorationScopeId: 'reborn',
               //国际化
@@ -53,6 +54,9 @@ class RebornApp extends StatelessWidget {
                     settings: routeSettings,
                     builder: (BuildContext context) {
                       switch (routeSettings.name) {
+                        //演示textfield 和 button的使用
+                        case TextFieldExamplePage.routeName:
+                          return const TextFieldExamplePage();
                         case InfiniteListView.routeName:
                           return const InfiniteListView();
                         case SettingsView.routeName:

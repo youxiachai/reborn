@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:reborn/src/settings/settings_view.dart';
 
 import '../infinite_list/infinite_list_view.dart';
+import '../textfile_button/textfile_button_view.dart';
 import 'sample_item.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,11 +13,12 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var title = AppLocalizations.of(context)!.infinite_list;
-
-    var itemOne = SampleItem(0, title, InfiniteListView.routeName);
-
-    List<SampleItem> items = [itemOne];
+    List<SampleItem> items = [
+      SampleItem(0, AppLocalizations.of(context)!.infiniteList,
+          InfiniteListView.routeName),
+      SampleItem(1, AppLocalizations.of(context)!.textFieldExample,
+          TextFieldExamplePage.routeName)
+    ];
 
     return Scaffold(
       appBar: AppBar(

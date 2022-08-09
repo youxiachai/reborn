@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +14,9 @@ class InfiniteListView extends StatelessWidget {
     return ChangeNotifierProvider<Catalog>(
         create: (context) => Catalog(),
         child: Scaffold(
+            restorationId: 'InfiniteListView',
             appBar: AppBar(
-                title: Text(AppLocalizations.of(context)!.infinite_list)),
+                title: Text(AppLocalizations.of(context)!.infiniteList)),
             body: Selector<Catalog, int?>(
               //监听数据的变化
               selector: (context, catalog) => catalog.itemCount,

@@ -53,3 +53,12 @@ https://github.com/leanflutter/window_manager/blob/main/README-ZH.md#%E5%9C%A8%E
 关于启动白屏的问题
 
 https://github.com/leanflutter/window_manager/issues/185
+
+
+Awesome Flutter Snippets
+
+## TextField 的简单使用笔记
+
+初始化 `var controller = TextEditingController();`
+
+使用 `controller.text` 可以获得当前输入的内容
