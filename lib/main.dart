@@ -37,6 +37,7 @@ Future<bool> setupWindow() async {
       size: Size(windowWidth, windowHeight),
       center: true,
       backgroundColor: Colors.transparent,
+      minimumSize: Size(windowWidth, windowHeight),
       skipTaskbar: false,
       titleBarStyle: TitleBarStyle.normal,
     );

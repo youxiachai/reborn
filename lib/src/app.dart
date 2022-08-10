@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:reborn/src/one_hour_app/one_hour_app.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_view.dart';
 
@@ -46,7 +47,9 @@ class RebornApp extends StatelessWidget {
               supportedLocales: const [Locale('en', ''), Locale('zh', '')],
               onGenerateTitle: (BuildContext context) =>
                   AppLocalizations.of(context)!.appTitle,
-              theme: ThemeData(),
+              theme: ThemeData(
+                primarySwatch: Colors.green
+              ),
               darkTheme: ThemeData.dark(),
               themeMode: settingsController.themeMode,
               onGenerateRoute: (RouteSettings routeSettings) {
@@ -61,6 +64,8 @@ class RebornApp extends StatelessWidget {
                           return const InfiniteListView();
                         case SettingsView.routeName:
                           return SettingsView(controller: settingsController);
+                        case OneHourApp.routeName:
+                          return const OneHourApp();
                       }
                       // return const InfiniteListView();
                       return const HomeView();
