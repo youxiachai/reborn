@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reborn/src/one_hour_app/home_page.dart';
+import 'package:reborn/src/one_hour_app/profile.dart';
 
 class OneHourApp extends StatelessWidget {
   static const routeName = '/one_hour_app';
@@ -21,6 +22,7 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   var currentPage = 0;
+  final pages = [const OneHourHomePage(), const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class _RootPageState extends State<RootPage> {
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      body: const OneHourHomePage(),
+      body: pages[currentPage],
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'home'),
@@ -38,9 +40,8 @@ class _RootPageState extends State<RootPage> {
         ],
         onDestinationSelected: (value) {
           setState(() {
-             currentPage = value;
+            currentPage = value;
           });
-         
         },
         selectedIndex: currentPage,
       ),
