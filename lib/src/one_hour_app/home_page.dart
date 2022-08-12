@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class OneHourHomePage extends StatelessWidget {
   const OneHourHomePage({super.key});
 
@@ -35,7 +37,9 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: true,
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline))],
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline))
+          ],
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -77,22 +81,23 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
             GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  print('ok');
+                  appLog.info('one hour gesturedetector');
+                
                 },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Icon(
-                      Icons.local_fire_department,
-                      color: Colors.blue,
-                    ),
-                    Text('row Widget'),
-                    Icon(
-                      Icons.local_fire_department,
-                      color: Colors.blue,
-                    ),
-                  ],
-                )),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.blue,
+                  ),
+                  Text('row Widget'),
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.blue,
+                  ),
+                ],
+                ) ),
             Switch(
                 value: _isSwitch,
                 onChanged: (newBool) {
@@ -115,3 +120,5 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
     );
   }
 }
+
+
