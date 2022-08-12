@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:reborn/src/one_hour_app/one_hour_app.dart';
 import 'package:reborn/src/settings/settings_view.dart';
 
 import '../infinite_list/infinite_list_view.dart';
@@ -17,7 +18,9 @@ class HomeView extends StatelessWidget {
       SampleItem(0, AppLocalizations.of(context)!.infiniteList,
           InfiniteListView.routeName),
       SampleItem(1, AppLocalizations.of(context)!.textFieldExample,
-          TextFieldExamplePage.routeName)
+          TextFieldExamplePage.routeName),
+       SampleItem(2, AppLocalizations.of(context)!.oneHourApp,
+          OneHourApp.routeName)    
     ];
 
     return Scaffold(

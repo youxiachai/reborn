@@ -5,6 +5,7 @@
   "otherTitle": "otherTitle",
   "infiniteList": "infiniteList",
   "textFieldExample" : "textFieldExample",
+  "oneHourApp" : "oneHourApp",
   "@appTitle": {
     "description": "The title of the application"
   }

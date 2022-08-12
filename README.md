@@ -62,3 +62,14 @@ Awesome Flutter Snippets
 初始化 `var controller = TextEditingController();`
 
 使用 `controller.text` 可以获得当前输入的内容
+
+
+
+添加啊平台支持
+flutter create --platforms=windows .
+
+
+## 常用控件练习
+
+ROW的点击效果可以用GestureDetector(behavior) 来控制， 在Windows， 不知道为啥没有点击的水波纹效果。
+
