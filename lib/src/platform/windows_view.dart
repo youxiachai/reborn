@@ -3,6 +3,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../main.dart';
 import '../app.dart';
+import '../nav2/reborn_nav2.dart';
 import '../settings/settings_controller.dart';
 
 class RebornAppForDesktop extends StatefulWidget {
@@ -47,7 +48,8 @@ class _RebornAppForDesktopState extends State<RebornAppForDesktop>
   Widget build(BuildContext context) {
     appLog.info('_RebornAppForDesktopState build');
 
-    return RebornApp(settingsController: widget.settingsController);
+    return RebornNav2(settingsController: widget.settingsController,);
+    // return RebornApp(settingsController: widget.settingsController);
   }
 
   @override
@@ -58,7 +60,7 @@ class _RebornAppForDesktopState extends State<RebornAppForDesktop>
 
   @override
   void onWindowFocus() {
-     appLog.info('onWindowEvent $onWindowFocus');
+    appLog.info('onWindowEvent $onWindowFocus');
     _isFirstOnWindowFocus = true;
     // Make sure to call once.
     setState(() {});

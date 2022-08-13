@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:reborn/main.dart';
 import 'package:reborn/src/one_hour_app/one_hour_app.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_view.dart';
 
 import 'home/home_view.dart';
 import 'infinite_list/infinite_list_view.dart';
+import 'nav2/nav2_example_view.dart';
 import 'textfile_button/textfile_button_view.dart';
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
@@ -33,44 +35,52 @@ class RebornApp extends StatelessWidget {
     return AnimatedBuilder(
         animation: settingsController,
         builder: (BuildContext context, Widget? child) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: true,
-              scrollBehavior: MyCustomScrollBehavior(),
-              restorationScopeId: 'reborn',
-              //国际化
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [Locale('en', ''), Locale('zh', '')],
-              onGenerateTitle: (BuildContext context) =>
-                  AppLocalizations.of(context)!.appTitle,
-              theme: ThemeData(
-                primarySwatch: Colors.green
-              ),
-              darkTheme: ThemeData.dark(),
-              themeMode: settingsController.themeMode,
-              onGenerateRoute: (RouteSettings routeSettings) {
-                return MaterialPageRoute(
-                    settings: routeSettings,
-                    builder: (BuildContext context) {
-                      switch (routeSettings.name) {
-                        //演示textfield 和 button的使用
-                        case TextFieldExamplePage.routeName:
-                          return const TextFieldExamplePage();
-                        case InfiniteListView.routeName:
-                          return const InfiniteListView();
-                        case SettingsView.routeName:
-                          return SettingsView(controller: settingsController);
-                        case OneHourApp.routeName:
-                          return const OneHourApp();
-                      }
-                      // return const InfiniteListView();
-                      return const HomeView();
-                    });
-              });
+          return appNav1(settingsController);
         });
   }
 }
+
+MaterialApp appNav1(SettingsController settingsController) {
+  return MaterialApp(
+      debugShowCheckedModeBanner: true,
+      scrollBehavior: MyCustomScrollBehavior(),
+      restorationScopeId: 'reborn',
+      //国际化
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en', ''), Locale('zh', '')],
+      onGenerateTitle: (BuildContext context) =>
+          AppLocalizations.of(context)!.appTitle,
+      theme: ThemeData(primarySwatch: Colors.green),
+      darkTheme: ThemeData.dark(),
+      themeMode: settingsController.themeMode,
+      onGenerateRoute: (RouteSettings routeSettings) {
+        return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (BuildContext context) {
+              switch (routeSettings.name) {
+                //演示textfield 和 button的使用
+                case TextFieldExamplePage.routeName:
+                  return const TextFieldExamplePage();
+                case InfiniteListView.routeName:
+                  return const InfiniteListView();
+                case SettingsView.routeName:
+                  return SettingsView(controller: settingsController);
+                case OneHourApp.routeName:
+                  return const OneHourApp();
+                case BookPageView.routeName:
+                  return const BookPageView();
+              }
+              // return const InfiniteListView();
+              return HomeView();
+            });
+      });
+}
+
+
+
+

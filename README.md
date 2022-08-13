@@ -73,3 +73,51 @@ flutter create --platforms=windows .
 
 ROW的点击效果可以用GestureDetector(behavior) 来控制， 在Windows， 不知道为啥没有点击的水波纹效果。
 
+## nav 2 练习
+
+1. page 用来表示 Navigator 路由栈中各个页面的配置信息。
+2. Router 用来制定要由 Navigator 展示的页面列表，通常，该页面列表会根据系统或应用程序的状态改变而改变。
+3. RouteInformationParser 持有 RouteInformationProvider 提供的  RouteInformation  ，可以将其解析为我们定义的数据类型。
+4. RouterDelegate 定义应用程序中的路由行为，例如 Router 如何知道应用程序状态的变化以及如何响应。主要的工作就是监听  RouteInformationParser 和应用状态并通过当前页面列表构建・。
+5. BackButtonDispatcher  响应后退按钮，并通知 Router
+
+大致流程如下：
+
+1. 当系统打开新页面（如 “books / 2”）时，RouteInformationParser 会将其转换为应用中的具体数据类型 T（如 BooksRoutePath）。
+2. 该数据类型会被传递给 RouterDelegate 的 setNewRoutePath 方法，我们可以在这里更新路由状态（如通过设置 selectedBookId）并调用 notifyListeners 响应该操作。
+3. notifyListeners 会通知 Router 重建 RouterDelegate（通过 build() 方法）.
+4. RouterDelegate.build() 返回一个新的 Navigator 实例，并最终展示出我们想要打开的页面（如 selectedBookId）。
+
+
+## Navigator 2 真的痛
+
+使用Navigator 2 进行导航的发现，二级页面一直没法处理后退事件，在手机上，按后退就会直接退出App，查了半天发现原来是Navigator.pages 的值，我一直用错了
+
+我之前是这么写的
+```dart
+Navigator(
+      pages: [
+        if (homeManager.currentItem == '/') HomePageView.page(),
+        if (homeManager.currentItem == '/settings') SettingsPageView.page()
+      ],
+  
+    )
+
+```
+
+结果路由的时候，死活没有二级，我把教程看了一遍又一遍，实在搞不懂，哪里出错了。
+
+后面，实在查不到，就用最笨的方法，找个别人的例子，一遍遍的改来看看。 花了大概几个小时，在试了无数次方法后，发现原来Navigator.pages 要留个值在里面，才能popUp。。。
+
+最后的修复方案
+```dart
+
+Navigator(
+      key: navigatorKey,
+      pages: [
+        HomePageView.page(),
+        if (homeManager.currentItem == '/settings') SettingsPageView.page()
+      ],
+    )
+
+```

@@ -7,6 +7,7 @@ import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/app.dart';
+import 'src/nav2/reborn_nav2.dart';
 import 'src/platform/desktop_init_manager.dart';
 import 'src/platform/windows_view.dart';
 import 'package:logging/logging.dart';
@@ -72,6 +73,6 @@ void main() async {
   if (isDesktop) {
     runApp(RebornAppForDesktop(settingsController: settingsController));
   } else {
-    runApp(RebornApp(settingsController: settingsController));
+    runApp(RebornNav2(settingsController: settingsController));
   }
 }

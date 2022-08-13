@@ -6,6 +6,7 @@
   "infiniteList": "无限列表",
   "textFieldExample" : "输入和按钮框使用",
   "oneHourApp" : "一小时App",
+  "bookApp" : "Nav2App",
   "@appTitle": {
     "description": "The title of the application"
   }
