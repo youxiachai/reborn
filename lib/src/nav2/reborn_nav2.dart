@@ -9,7 +9,10 @@ import '../app.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import '../infinite_list/infinite_list_view.dart';
+import '../one_hour_app/one_hour_app.dart';
 import '../settings/settings_controller.dart';
+import '../textfile_button/textfile_button_view.dart';
 import 'nav2_example_view.dart';
 
 class RebornNav2 extends StatefulWidget {
@@ -26,10 +29,7 @@ class _RebornNav2State extends State<RebornNav2> {
   late AppRouterDelegate _routerDelegate;
   final _homeManager = HomeManager();
 
-  // VeggieRouterDelegate _routerDelegate = VeggieRouterDelegate();
-  // VeggieRouteInformationParser _routeInformationParser =
-  //     VeggieRouteInformationParser();
-
+  
   @override
   void initState() {
     _routerDelegate =
@@ -94,9 +94,12 @@ class AppRouteParser extends RouteInformationParser<AppLink> {
 
 class AppRouterDelegate extends RouterDelegate<AppLink>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppLink> {
+
+  @override
+  GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();    
+
   final HomeManager homeManager;
   final SettingsController settingsController;
-
 
   AppRouterDelegate(this.homeManager, this.settingsController) {
     homeManager.addListener(notifyListeners);
@@ -108,30 +111,51 @@ class AppRouterDelegate extends RouterDelegate<AppLink>
     super.dispose();
   }
 
-
-  bool show404 = false;
-
-
-
   @override
   Widget build(BuildContext context) {
     //返回 Nav widget 显示
     appLog.info(
         'AppRouterDelegate build $navigatorKey ${homeManager.currentItem}');
 
+    List<Page> pages = [HomeView.page()];
 
-    List<Page> pages = <Page>[
-      HomeView.page(),
-      if (homeManager.currentItem == SettingsView.routeName) SettingsView.page(settingsController)
-    ];
+    final subPage = _createPage();
+
+    if (subPage != null) {
+      pages = [HomeView.page(),subPage];
+    }
 
     return Navigator(
-      onPopPage: _handlePopPage,
       key: navigatorKey,
       pages: pages,
+      onPopPage: _handlePopPage,
     );
   }
 
+
+  MaterialPage _createPageView(String routeName, Widget widget) {
+    return MaterialPage(
+        name: routeName, key: ValueKey(routeName), child: widget);
+  }
+
+  MaterialPage? _createPage() {
+    switch (homeManager.currentItem) {
+      case TextFieldExamplePage.routeName:
+        return _createPageView(
+            homeManager.currentItem, const TextFieldExamplePage());
+      case InfiniteListView.routeName:
+        return _createPageView(
+            homeManager.currentItem, const InfiniteListView());
+      case OneHourApp.routeName:
+        return _createPageView(homeManager.currentItem, const OneHourApp());
+      case BookPageView.routeName:
+        return _createPageView(homeManager.currentItem, const BookPageView());
+      case SettingsView.routeName:
+        return SettingsView.page(settingsController);
+    }
+
+    return null;
+  }
 
   bool _handlePopPage(Route<dynamic> route, result) {
     appLog.info('_handlePopPage $route $result');
@@ -139,24 +163,26 @@ class AppRouterDelegate extends RouterDelegate<AppLink>
       return false;
     }
 
-  
+    homeManager.currentItem = '/';
+
+    notifyListeners();
 
     return true;
   }
-
- 
   // //路由表的唯一key
-  @override
-  GlobalKey<NavigatorState>? get navigatorKey => GlobalKey<NavigatorState>();
+  // @override
+  // GlobalKey<NavigatorState>? get navigatorKey => GlobalKey<NavigatorState>();
 
   @override
   Future<void> setNewRoutePath(AppLink configuration) async {
     //打开页面后更新参数
     appLog.info('setNewRoutePath $configuration $navigatorKey');
+
+    homeManager.currentItem = configuration.location!;
   }
 
   @override
-  AppLink? get currentConfiguration => getCurrentPath();
+  AppLink get currentConfiguration => getCurrentPath();
 
   AppLink getCurrentPath() {
     //恢复的时候，拿当前的路由的
@@ -165,6 +191,8 @@ class AppRouterDelegate extends RouterDelegate<AppLink>
     return AppLink(
         location: homeManager.currentItem, currentTab: null, itemId: null);
   }
+
+
 }
 
 class AppLink {
@@ -186,7 +214,7 @@ class AppLink {
   });
 
   static AppLink fromLocation(String? location) {
-    location = Uri.decodeFull(location ?? '');
+    location = Uri.decodeFull(location ?? '/');
 
     final uri = Uri.parse(location);
     final params = uri.queryParameters;

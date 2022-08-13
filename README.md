@@ -121,3 +121,16 @@ Navigator(
     )
 
 ```
+
+
+处理物理的后退按钮 需要注意
+
+```dart
+  @override
+  GlobalKey<NavigatorState>?  navigatorKey = GlobalKey<NavigatorState>();
+
+  //不要用
+  @override
+  GlobalKey<NavigatorState>? get navigatorKey => GlobalKey<NavigatorState>();
+
+```

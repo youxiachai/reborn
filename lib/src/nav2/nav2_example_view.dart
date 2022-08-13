@@ -32,33 +32,28 @@ class _BookPageViewState extends State<BookPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return BooksListScreen(
-      books: books,
-      onTapped: _handleSelectBook,
+    return Navigator(
+      pages: [
+        MaterialPage(
+            key: ValueKey('booklistPage'),
+            child: BooksListScreen(
+              books: books,
+              onTapped: _handleSelectBook,
+            )),
+        if (_selectedBook != null) BookDetailPage(book: _selectedBook)
+      ],
+      onPopPage: (route, result) {
+        if (!route.didPop(result)) {
+          //
+          return false;
+        }
+        setState(() {
+          _selectedBook = null;
+        });
+
+        return true;
+      },
     );
-
-    // return Navigator(
-    //   pages: [
-    //     MaterialPage(
-    //         key: ValueKey('booklistPage'),
-    //         child: BooksListScreen(
-    //           books: books,
-    //           onTapped: _handleSelectBook,
-    //         )),
-    //     if (_selectedBook != null) BookDetailPage(book: _selectedBook)
-    //   ],
-    //   onPopPage: (route, result) {
-    //     if (!route.didPop(result)) {
-    //       //
-    //       return false;
-    //     }
-    //     setState(() {
-    //       _selectedBook = null;
-    //     });
-
-    //     return true;
-    //   },
-    // );
   }
 
   void _handleSelectBook(Book book) {

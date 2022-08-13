@@ -6,7 +6,6 @@ import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'src/app.dart';
 import 'src/nav2/reborn_nav2.dart';
 import 'src/platform/desktop_init_manager.dart';
 import 'src/platform/windows_view.dart';

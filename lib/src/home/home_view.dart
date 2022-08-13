@@ -11,14 +11,15 @@ import '../textfile_button/textfile_button_view.dart';
 import 'sample_item.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
-  static MaterialPage page() {
-    var homeView = const HomeView();
 
-    return MaterialPage(name: routeName, key: const ValueKey(routeName), child: homeView);
+  static MaterialPage page() {
+    var homeView = HomeView();
+    return MaterialPage(
+        name: routeName, key: const ValueKey(routeName), child: homeView);
   }
 
   @override
@@ -45,6 +46,8 @@ class HomeView extends StatelessWidget {
 
                   homeManger.showItem(SettingsView.routeName);
 
+                
+
                   // Navigator.restorablePushNamed(
                   //     context, SettingsView.routeName);
                 },
@@ -68,10 +71,10 @@ class HomeView extends StatelessWidget {
                 // background, the navigation stack is restored.
                 // 用这个路由，下一级UI appbar 才会添加返回按钮
                 // Navigator.restorablePushNamed(context, item.routeName);
-                    final homeManger =
-                      Provider.of<HomeManager>(context, listen: false);
+                final homeManger =
+                    Provider.of<HomeManager>(context, listen: false);
 
-                  homeManger.showItem(item.routeName);
+                homeManger.showItem(item.routeName);
               },
             );
           }),
