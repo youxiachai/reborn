@@ -134,3 +134,20 @@ Navigator(
   GlobalKey<NavigatorState>? get navigatorKey => GlobalKey<NavigatorState>();
 
 ```
+
+
+## Flutter Provider 小记
+
+https://juejin.cn/post/7067356022272163847
+
+1. 创建一个继承ChangeNotifier类用来提供 给provider 
+2. 提供者：常用 ChangeNotifierProvider 这是监听一个， MultiProvder 这个可以注册多个
+3. 消费者： Consumber 监听整个provider 或者 Selector 监听provider的某个值。注意可以用(BuildContext context,Object object,Widget? child), 来优化刷新，其中child 为UI不更新的部分
+
+还有 ProxyProvider 整个后面用到了在做笔记
+
+消费者还可用Provider.of() 来获取 lister: false 不会触发更新 BuildContext.read BuildContext.watch BuildContext.select
+
+vs code 快捷键速查
+
+按ctrl+k,s 然后 在搜索框中输入 upper/lower,输入相应的快捷键设置，点击OK 生效。
