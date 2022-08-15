@@ -151,3 +151,29 @@ https://juejin.cn/post/7067356022272163847
 vs code 快捷键速查
 
 按ctrl+k,s 然后 在搜索框中输入 upper/lower,输入相应的快捷键设置，点击OK 生效。
+
+
+## process_run 的使用
+
+注意使用process_run 参数是一个数组列表，而不是一个字符串`'echo', ['-d value -f value]`不要这么写
+```dart
+  await runExecutableArguments('echo', ['-d','value','-f','value'],
+        stdout: controller.sink, stderr: stderr);
+```        
+
+
+## listView 使用
+
+Column 嵌套listview 的时候，要主要使用`Expanded` 来包裹 listview， 防止overdraw
+
+```dart
+Column(
+  children : [
+    Text('welcome'),
+    Expanded(
+      child: ListView()
+    )
+  ]
+);
+```
+
