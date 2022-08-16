@@ -7,6 +7,7 @@
   "textFieldExample" : "输入和按钮框使用",
   "oneHourApp" : "一小时App",
   "bookApp" : "Nav2App",
+  "riverpodExample" : "riverpodExample",
   "@appTitle": {
     "description": "The title of the application"
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
@@ -72,6 +73,6 @@ void main() async {
   if (isDesktop) {
     runApp(RebornAppForDesktop(settingsController: settingsController));
   } else {
-    runApp(RebornNav2(settingsController: settingsController));
+    runApp(ProviderScope(child: RebornNav2(settingsController: settingsController)));
   }
 }

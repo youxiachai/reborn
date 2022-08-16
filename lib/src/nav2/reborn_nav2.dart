@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../infinite_list/infinite_list_view.dart';
 import '../one_hour_app/one_hour_app.dart';
+import '../riverpod_example/riverpod_example_view.dart';
 import '../settings/settings_controller.dart';
 import '../textfile_button/textfile_button_view.dart';
 import 'nav2_example_view.dart';
@@ -152,6 +153,9 @@ class AppRouterDelegate extends RouterDelegate<AppLink>
         return _createPageView(homeManager.currentItem, const BookPageView());
       case SettingsView.routeName:
         return SettingsView.page(settingsController);
+       case RiverpodExampleView.routeName:
+        return _createPageView(homeManager.currentItem, const RiverpodExampleView());
+
     }
 
     return null;

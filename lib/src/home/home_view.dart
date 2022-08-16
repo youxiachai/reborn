@@ -7,6 +7,7 @@ import 'package:reborn/src/settings/settings_view.dart';
 
 import '../infinite_list/infinite_list_view.dart';
 import '../nav2/nav2_example_view.dart';
+import '../riverpod_example/riverpod_example_view.dart';
 import '../textfile_button/textfile_button_view.dart';
 import 'sample_item.dart';
 
@@ -32,7 +33,9 @@ class HomeView extends StatelessWidget {
       SampleItem(
           2, AppLocalizations.of(context)!.oneHourApp, OneHourApp.routeName),
       SampleItem(
-          3, AppLocalizations.of(context)!.bookApp, BookPageView.routeName)
+          3, AppLocalizations.of(context)!.bookApp, BookPageView.routeName),
+            SampleItem(
+          4, AppLocalizations.of(context)!.riverpodExample, RiverpodExampleView.routeName)
     ];
 
     return Scaffold(

@@ -7,6 +7,7 @@
   "textFieldExample" : "textFieldExample",
   "oneHourApp" : "oneHourApp",
   "bookApp" : "bookApp",
+  "riverpodExample" : "riverpodExample",
   "@appTitle": {
     "description": "The title of the application"
   }
