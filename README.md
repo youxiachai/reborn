@@ -177,3 +177,48 @@ Column(
 );
 ```
 
+
+## riverpod 使用笔记
+
+DON'T use ref.read inside the build method
+
+
+不要这么写， 因为这样是监听不到值的变化，read 不会对值进行更新，点击后，使用的值，会跟预想的效果不一致
+```dart
+final counterProvider = StateProvider((ref) => 0);
+
+Widget build(BuildContext context, WidgetRef ref) {
+  // use "read" to ignore updates on a provider
+  final counter = ref.read(counterProvider.notifier);
+  return ElevatedButton(
+    onPressed: () => counter.state++,
+    child: const Text('button'),
+  );
+}
+```
+
+但是你想用read ，减少 rebuild 可以这么些
+
+```dart
+final counterProvider = StateProvider((ref) => 0);
+
+Widget build(BuildContext context, WidgetRef ref) {
+  StateController<int> counter = ref.read(counterProvider.notifier);
+  return ElevatedButton(
+    onPressed: () => counter.state++,
+    child: const Text('button'),
+  );
+}
+
+//或者
+final counterProvider = StateProvider((ref) => 0);
+
+Widget build(BuildContext context, WidgetRef ref) {
+  StateController<int> counter = ref.watch(counterProvider.notifier);
+  return ElevatedButton(
+    onPressed: () => counter.state++,
+    child: const Text('button'),
+  );
+}
+
+```
