@@ -222,3 +222,28 @@ Widget build(BuildContext context, WidgetRef ref) {
 }
 
 ```
+
+
+### 利用Provider 来缓存结果，减少刷新
+
+例如一个上一步按钮, 如果直接监听，页面变化的话，会导致每一次页面变化都会刷新这个按钮，但是，对于按钮而已，只需要记住开启和关闭即可，没必要，每次页面刷新就要记住
+
+```dart
+
+final pageIndexProvider = StateProvider<int>((ref) => 0);
+final canGoToPreviousPage = ref.watch(pageIndexProvider) != 0;
+
+```
+
+例如provider 缓存结果就很方便
+
+```dart
+
+final canGoToPreviousPageProvider = Provider<bool>((ref) {
+  // 用provider 来缓存中间值
+  return ref.watch(pageIndexProvider) != 0;
+});
+
+//我们UI直接监听结果
+inal canGoToPreviousPage = ref.watch(canGoToPreviousPageProvider);
+```

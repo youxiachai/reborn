@@ -71,7 +71,7 @@ void main() async {
   var isDesktop = await setupWindow();
 
   if (isDesktop) {
-    runApp(RebornAppForDesktop(settingsController: settingsController));
+    runApp(ProviderScope(child: RebornAppForDesktop(settingsController: settingsController)));
   } else {
     runApp(ProviderScope(child: RebornNav2(settingsController: settingsController)));
   }
