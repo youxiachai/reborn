@@ -247,3 +247,41 @@ final canGoToPreviousPageProvider = Provider<bool>((ref) {
 //我们UI直接监听结果
 inal canGoToPreviousPage = ref.watch(canGoToPreviousPageProvider);
 ```
+
+
+### StateNotifier 的使用
+
+注意触发StateNotifier 的更新是需要整个对象变化！才会有rebuild 事件发出
+
+```dart
+class ObjectNotifer extends StateNotifier<Object> {
+
+  void update() {
+
+    state.x = 'ok';
+  }
+}
+```
+
+如果直接修改state 里面的某个参数，是不会触发widget的更新的，如果要触发widget的更新， 需要
+
+```dart
+class ObjectNotifer extends StateNotifier<Object> {
+
+  void update() {
+    final object2 = Object();
+
+    state = object2;
+  }
+}
+```
+
+这样子，watch的StateNotifierProvider,才能触发widget 的更新。
+
+那么，问题来了，如果我的UI只是显示对象里面的某个值，这样整个对象更新，但是，某个显示值并没有发生改变，那么就会导致没意义的重绘，这里我们可以用`select` 来避免这种情况
+
+```dart
+var result = ref.watch(objectProvider.select((value) => value.x));
+```
+
+这种写法，就可以只针对对象里面某个值更新，才进行重绘。
