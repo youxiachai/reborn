@@ -2,6 +2,9 @@
 
 flutter 例子练习
 
+## flutter 小结
+
+ dart pub outdated 检查当前项目库最新版本
 
 ## i10n 使用
 app_localizations i10n 是怎么工作的
