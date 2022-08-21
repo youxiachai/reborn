@@ -286,6 +286,46 @@ var result = ref.watch(objectProvider.select((value) => value.x));
 
 这种写法，就可以只针对对象里面某个值更新，才进行重绘。
 
+### Riverpod listen的使用注意。
+CAUTION
+The listen method should not be called asynchronously, like inside an onPressed of an ElevatedButton.
+ Nor should it be used inside initState and other State life-cycles.
+
+listen 事件 最好写在provider和 build 方法里面， 不要写在任何 state 周期里面
+
+
+```dart
+The ref.listen method can be used inside the body of a provider:
+
+final counterProvider = StateNotifierProvider<Counter, int>((ref) => Counter(ref));
+
+final anotherProvider = Provider((ref) {
+  ref.listen<int>(counterProvider, (int? previousCount, int newCount) {
+    print('The counter changed $newCount');
+  });
+  // ...
+});
+or inside the build method of a widget:
+
+final counterProvider = StateNotifierProvider<Counter, int>((ref) => Counter(ref));
+
+class HomeView extends ConsumerWidget {
+  const HomeView({Key? key}): super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<int>(counterProvider, (int? previousCount, int newCount) {
+      print('The counter changed $newCount');
+    });
+    
+    return Container();
+  }
+}
+
+```
+
+
+
 ## 用flutter 开发桌面客户端一周感悟 20220821
 
 首先,使用flutter来开发客户端这个事情是可行的,虽然,目前官方已经将flutter desktop 列入了稳定版本,但是,有以下几点还是需要自己找方案解决
