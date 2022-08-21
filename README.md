@@ -328,6 +328,16 @@ class HomeView extends ConsumerWidget {
 ```
 
 
+## dio http 笔记
+
+http 请求返回的Future<dynamic> 的数据， 如果是已经值得是json 的数据的时候，可以用以下方式获取变量值
+
+```dart
+final data = <String, dynamic>{};
+ a = json['a'];
+ b = json['b'];
+```
+
 
 ## 用flutter 开发桌面客户端一周感悟 20220821
 
