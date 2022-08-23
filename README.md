@@ -338,6 +338,36 @@ final data = <String, dynamic>{};
  b = json['b'];
 ```
 
+## websocket 处理
+
+使用官方的https://pub.dev/packages/web_socket_channel 库就很好请求http 推送相关的逻辑
+
+```dart
+
+
+  void _handleLog(dynamic event) {
+    for (final it in (event as String).split('\n')) {
+      appLog.info('_handleLog $it');
+
+    }
+  }
+
+  
+  void _handleOnDone() {
+    if (logWsChannel?.closeCode != WebSocketStatus.goingAway) {
+      appLog.info('C_handleOnDone');
+    } else {}
+
+    logWsChannel = null;
+  }
+
+main() async {
+  var channel = IOWebSocketChannel.connect(Uri.parse('ws://localhost:1234'));
+  //channel.sink.close(status.goingAway); 注意一下关闭的处理
+  channel.stream.listen(_handleLog, onDone: _handleOnDone, onError: (_) => _handleOnDone());
+}
+```
+
 
 ## 用flutter 开发桌面客户端一周感悟 20220821
 
