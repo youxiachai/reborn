@@ -369,6 +369,23 @@ main() async {
 ```
 
 
+## flutter 数据序列化
+
+不像手工写模板代码有两套生成代码的build run
+1. https://pub.dev/packages/json_serializable
+2. https://pub.dev/packages/built_value
+
+如果只是关心使用json的话,我觉得用`json_serializable`就够了,`built_value`虽然适用更广,json支持只是它的其中一部分功能.
+
+不过,项目上用了build runner这一套东西.项目最开始的运行就得配置一下build run的一些配置,不然,就会有一堆报错
+
+```dart
+flutter pub run build_runner build
+```
+
+我觉得,如果数据不是很多的项目,没必要上这种build run 来徒增项目的复杂度.
+
+
 ## 用flutter 开发桌面客户端一周感悟 20220821
 
 首先,使用flutter来开发客户端这个事情是可行的,虽然,目前官方已经将flutter desktop 列入了稳定版本,但是,有以下几点还是需要自己找方案解决
