@@ -386,6 +386,13 @@ flutter pub run build_runner build
 我觉得,如果数据不是很多的项目,没必要上这种build run 来徒增项目的复杂度.
 
 
+注意使用`Map<String, dynamic>` 来转换原始json 字符串,类似
+
+```dart
+final parsedJson = json.decode(e) as Map<String, dynamic>;
+```
+
+
 ## 用flutter 开发桌面客户端一周感悟 20220821
 
 首先,使用flutter来开发客户端这个事情是可行的,虽然,目前官方已经将flutter desktop 列入了稳定版本,但是,有以下几点还是需要自己找方案解决
