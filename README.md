@@ -6,8 +6,8 @@ flutter 例子练习
 
  dart pub outdated 检查当前项目库最新版本
 
-## i10n 使用
-app_localizations i10n 是怎么工作的
+## l10n 使用
+app_localizations l10n 是怎么工作的
 
 使用 flutter gen-l10n 来生成文件
 
