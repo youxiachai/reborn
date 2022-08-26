@@ -289,6 +289,77 @@ var result = ref.watch(objectProvider.select((value) => value.x));
 
 这种写法，就可以只针对对象里面某个值更新，才进行重绘。
 
+
+### Riverpod的Provider 在周期中使用注意
+
+#### 不要再initState()中更新state
+
+如果对StateNotifierProvider的notifier在init 中调用，要注意调用的方法不要更新state
+
+```dart
+
+@override
+  void initState() {
+    super.initState();
+
+    ref.read(provider.notifier).checkService();
+  }
+
+//provider
+void checkService() {
+    state = state.copyWith(false);
+}
+
+```
+
+在build 以前更新StateNotifier的state 会出异常，不应该这么写,因为，state的更新会触发widget的更新，但是，init的时候触发整个更新，就完全错乱了。
+
+在build以前，如果要更新值可以直接这么些
+
+```dart
+void checkService() {
+    state.isRunning = false;
+}
+```
+
+在build 以前的生命周期中，直接修改state的值，这样就不会触发循环更新。
+
+#### 在dispose方法中操作provider
+
+```dart
+@override
+  void dispose() {
+    ref.read(provider);
+    super.dispose();
+  }
+```
+
+直接在dispse()方法中操作provider 是会抛异常
+
+如果一定要在dispose 方法中操作，就需要这么写
+
+```dart
+  Provider? _provider = null;
+
+  @override
+  void dispose() {
+    _provider?.doSometing();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _provider = ref.read(provider);
+    super.didChangeDependencies();
+  }
+```
+
+需要在`didChangeDependencies`获得实例，而不是在`dispose`中直接获取
+
+
+
+
+
 ### Riverpod listen的使用注意。
 CAUTION
 The listen method should not be called asynchronously, like inside an onPressed of an ElevatedButton.
