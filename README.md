@@ -342,19 +342,12 @@ void checkService() {
   Provider? _provider = null;
 
   @override
-  void dispose() {
-    _provider?.doSometing();
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    _provider = ref.read(provider);
-    super.didChangeDependencies();
+  void build(BuildContext context) {
+    _provider = ref.watch(provider);
   }
 ```
 
-需要在`didChangeDependencies`获得实例，而不是在`dispose`中直接获取
+需要在`build`获得最新实例，而不是在`dispose`中直接获取
 
 
 
@@ -520,3 +513,18 @@ UI设计方面,有专门的设计师来出图,你负责搬运就好.
 3. 放弃对UI交互的探索, 用最原始的命令式交互,来实现核心功能.
 
 下周,我觉得以以上几点的目标来对我的桌面客户端进行,开发,希望,下周的周末,写回顾的时候.客户端已经能够正常跑起来了.
+
+
+## 用flutter 开发桌面客户端一周感悟 20220830
+
+看了一下上周的目标，这周摸鱼的天数有点多，周末睡觉，工作日下班休息了两天，所以，进度大大不行。。。
+
+不过，还是总结一下上一周做了些啥。
+
+1. 搞定了websocket的使用，解决了推送接口数据问题，之前，我还以为文档上说的每秒http推送是个什么万一，傻不拉几的直接用个for循环来取数据，后来想起了，http这玩意哪来的推送能力，有推送能力那个叫做websocket，找对路子以后，这个接口也就能用了。
+
+2. riverpod的周期中调用的问题，我发现，riverpod的provider不能随便在widget的dispose 随便调用，后来，虽然硬调用开上去好像也行，但是后面认真想了一下，其实这样并不符合这个东西的设计，应该用别的方式才行。
+
+3. 搞清楚了windows 下怎么进行杀进程，用于在异常退出后，还能恢复之前的状态。
+
+目前客户端开发的，进度也不算顺利，功能其实目前看来，基本可以收尾了，接下来的时间，我应该想想怎么做好这个UX上的设计。
