@@ -167,7 +167,7 @@ vs code 快捷键速查
 
 ## listView 使用
 
-Column 嵌套listview 的时候，要主要使用`Expanded` 来包裹 listview， 防止overdraw
+Column 嵌套listview 的时候，要注意使用`Expanded` 来包裹 listview， 防止overdraw
 
 ```dart
 Column(
@@ -179,6 +179,8 @@ Column(
   ]
 );
 ```
+
+反过来，如果没有Column嵌套的时候，不要用`Expanded` 来包裹 listview，不然会报`Incorrect use of ParentDataWidget`
 
 
 ## riverpod 使用笔记
