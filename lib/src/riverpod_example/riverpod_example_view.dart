@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reborn/main.dart';
+import 'package:reborn/src/LocaleLogic.dart';
 
 /// Providers are declared globally and specify how to create a state
 final counterProvider = StateProvider((ref) => 0);
@@ -20,7 +21,7 @@ class PreviousButton extends ConsumerWidget {
     appLog.info('PreviousButton build');
     // final canGoToPreviousPage = ref.watch(pageIndexProvider) != 0;
 
-     // We are now watching our new Provider
+    // We are now watching our new Provider
     // Our widget is no longer calculating whether we can go to the previous page.
     //用Provider 缓存值
     final canGoToPreviousPage = ref.watch(canGoToPreviousPageProvider);
@@ -43,29 +44,37 @@ class RiverpodExampleView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Counter example')),
-      body: Column(
-        children: [
-          Center(
-            // Consumer is a widget that allows you reading providers.
-            child: Consumer(builder: (context, ref, _) {
-              final count = ref.watch(counterProvider.state).state;
-              return Text('$count');
-            }),
-          ),
-          PreviousButton()
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        // The read method is a utility to read a provider without listening to it
-        onPressed: () {
-          ref.read(counterProvider.state).state++;
-          ref.read(pageIndexProvider.state).state++;
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+    final localeLogic = ref.watch(localeLogicProvider);
+
+    return localeLogic.when(data: (data) {
+      return Scaffold(
+        appBar: AppBar(title: Text(data.strings.riverpodExample)),
+        body: Column(
+          children: [
+            Center(
+              // Consumer is a widget that allows you reading providers.
+              child: Consumer(builder: (context, ref, _) {
+                final count = ref.watch(counterProvider.state).state;
+                return Text('$count');
+              }),
+            ),
+            PreviousButton()
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          // The read method is a utility to read a provider without listening to it
+          onPressed: () {
+            ref.read(counterProvider.state).state++;
+            ref.read(pageIndexProvider.state).state++;
+          },
+          child: const Icon(Icons.add),
+        ),
+      );
+    }, error: (error, stackTrace) {
+      return const Text('error');
+    }, loading: () {
+      return const CircularProgressIndicator();
+    });
   }
 
   static MaterialPage? page() {}

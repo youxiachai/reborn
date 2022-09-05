@@ -6,7 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reborn/src/settings/settings_controller.dart';
 import 'package:reborn/src/settings/settings_services.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'src/LocaleLogic.dart';
 import 'src/nav2/reborn_nav2.dart';
 import 'src/platform/desktop_init_manager.dart';
 import 'src/platform/windows_view.dart';
@@ -70,9 +72,11 @@ void main() async {
 
   var isDesktop = await setupWindow();
 
+
   if (isDesktop) {
     runApp(ProviderScope(child: RebornAppForDesktop(settingsController: settingsController)));
   } else {
     runApp(ProviderScope(child: RebornNav2(settingsController: settingsController)));
   }
+
 }
